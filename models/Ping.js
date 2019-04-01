@@ -8,8 +8,7 @@ const PingSchema = new Schema({
   },
   lat: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
   lng: {
     type: String,

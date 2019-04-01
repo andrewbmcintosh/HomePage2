@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
+import axios from 'axios';
 
 // Item Model
 const Ping = require('../../models/Ping');
@@ -8,7 +9,7 @@ const Member = require('../../models/Member');
 // @route   GET api/Pings
 // @desc    Get All Pings
 // @access  Public
-router.get('/pings', (req, res) => {
+router.get('/', (req, res) => {
   Ping.find()
     .sort({ date: -1 })
     .then(pings => res.json(pings));
@@ -19,13 +20,14 @@ router.get('/pings', (req, res) => {
 // @access  Private
 // BELOW IS AUTH ROUTE
 // router.post('/', auth, (req, res) => {
-router.post('/pings', (req, res) => {
+router.post('/', (req, res) => {
   const { memberId, lat, lng } = req.body;
-  Member.find()
-    .then(members => console.log(members))
-    .catch(err => console.log(err));
+  const API_KEY = process.env.GEOCODE_API_KEY;
+  axios.post(
+    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${API_KEY}`
+  );
 
-  const newPing = new Ping({
+  const newPlace = new Place({
     memberId,
     lat,
     lng

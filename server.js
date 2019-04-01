@@ -20,7 +20,8 @@ mongoose
 
 // Use Routes
 app.use('/api/members', require('./routes/api/members'));
-app.use('/api/pings', require('./routes/api/pings'));
+app.use('/api', require('./routes/api/pings'));
+app.use('/api/places', require('./routes/api/places'));
 
 const port = process.env.PORT || 5000;
 
