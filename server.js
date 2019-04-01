@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const routes = require('./routes/index');
 
 const app = express();
 
@@ -19,7 +20,8 @@ mongoose
   .catch(err => console.log(err));
 
 // Use Routes
-app.use('/api/members', require('./routes/api/members'));
+app.use('/', routes);
+// app.use('/api/members', require('./routes/api/members'));
 
 const port = process.env.PORT || 5000;
 
