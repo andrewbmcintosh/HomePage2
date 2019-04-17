@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middleware/auth');
-import axios from 'axios';
+const axios = require('axios');
 
 // Item Model
 const Ping = require('../../models/Ping');
@@ -23,17 +23,23 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const { memberId, lat, lng } = req.body;
   const API_KEY = process.env.GEOCODE_API_KEY;
-  axios.post(
-    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${API_KEY}`
-  );
+  axios
+    .post(
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${API_KEY}`
+    )
+    .then(res => {
+      placeData = res.data.results[0].place_id;
+      // console.log(placeData[0].place_id);
+      console.log(placeData);
+    });
 
-  const newPlace = new Place({
-    memberId,
-    lat,
-    lng
-  });
+  // const newPlace = new Place({
+  //   memberId,
+  //   lat,
+  //   lng
+  // });
 
-  newPing.save().then(ping => res.json(ping));
+  // newPing.save().then(ping => res.json(ping));
 });
 
 // @route   DELETE api/pings/:id

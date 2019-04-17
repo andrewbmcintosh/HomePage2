@@ -3,8 +3,8 @@ const Schema = mongoose.Schema;
 
 const PlaceSchema = new Schema({
   placeId: {
-    type: String,
-    required: true
+    type: String
+    // required: true
   },
   northeastLat: {
     type: String
